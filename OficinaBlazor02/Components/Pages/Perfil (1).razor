@@ -1,0 +1,113 @@
+@page "/perfil"
+@rendermode InteractiveServer
+
+<PageTitle>Perfil</PageTitle>
+
+<h1>Cartão de perfil</h1>
+
+<div class="perfil-layout">
+
+    <div class="formulario">
+        <label>
+            Nome
+            <input @bind="nome" @bind:event="oninput" />
+        </label>
+
+        <label>
+            Idade
+            <input type="number" @bind="idade" @bind:event="oninput" />
+        </label>
+
+        <label>
+            Curso
+            <input @bind="curso" @bind:event="oninput" />
+        </label>
+
+        <label>
+            Cidade
+            <input @bind="cidade" @bind:event="oninput" />
+        </label>
+
+        <label>
+            Altura (m)
+            <input type="number" step="0.01" @bind="altura" @bind:event="oninput" />
+        </label>
+    </div>
+
+    <div class="cartao" style="border-color: @CorBorda()">
+
+        @* Desafio 3: nome vazio vira Visitante *@
+        @if (string.IsNullOrWhiteSpace(nome))
+        {
+            <h2>Visitante</h2>
+        }
+        else
+        {
+            <h2>@nome</h2>
+        }
+
+        @* Desafio extra: idade inválida *@
+        @if (idade < 0 || idade > 120)
+        {
+            <p style="color: red"><strong>Idade inválida!</strong></p>
+        }
+        else
+        {
+            <div>
+                <p><strong>Idade:</strong> @idade anos</p>
+
+                @* Desafio 1: maior ou menor de idade *@
+                @if (idade >= 18)
+                {
+                    <p style="color: green"><strong>Maior de idade</strong></p>
+                }
+                else
+                {
+                    <p style="color: orange"><strong>Menor de idade</strong></p>
+                }
+
+                @* Desafio 2: faixa etária com else if *@
+                @if (idade < 12)
+                {
+                    <p><strong>Faixa etária:</strong> Criança</p>
+                }
+                else if (idade < 18)
+                {
+                    <p><strong>Faixa etária:</strong> Adolescente</p>
+                }
+                else if (idade < 60)
+                {
+                    <p><strong>Faixa etária:</strong> Adulto</p>
+                }
+                else
+                {
+                    <p><strong>Faixa etária:</strong> Idoso</p>
+                }
+            </div>
+        }
+
+        <p><strong>Curso:</strong> @curso</p>
+        <p><strong>Cidade:</strong> @cidade</p>
+        <p><strong>Altura:</strong> @altura m</p>
+        <hr />
+        <p>Daqui a 10 anos terá <strong>@(idade + 10)</strong> anos.</p>
+        <p>Ano de nascimento aproximado: <strong>@(2026 - idade)</strong></p>
+        <p>Seu nome tem <strong>@nome.Length</strong> letras.</p>
+    </div>
+
+</div>
+
+@code {
+    string nome = "Ana";
+    int idade = 20;
+    string curso = "Sistemas de Informação";
+    string cidade = "Belo Horizonte";
+    double altura = 1.68;
+
+    string CorBorda()
+    {
+        if (idade < 0 || idade > 120) return "red";
+        if (idade >= 18) return "green";
+        return "orange";
+    }
+}

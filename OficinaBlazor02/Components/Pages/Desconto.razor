@@ -1,0 +1,44 @@
+@page "/desconto"
+@rendermode InteractiveServer
+
+<PageTitle>Desconto</PageTitle>
+
+<h1>Calculadora de desconto</h1>
+
+<input type="number" @bind="valor" />
+<button @onclick="Calcular">Calcular</button>
+<button @onclick="Limpar">Limpar</button>
+
+<p style="color: @cor">@mensagem</p>
+
+@code {
+    double valor = 0;
+    string mensagem = "";
+    string cor = "black";
+
+    void Calcular()
+    {
+        if (valor > 200)
+        {
+            mensagem = $"20% de desconto! Total: R$ {valor * 0.8:F2}";
+            cor = "green";
+        }
+        else if (valor >= 100)
+        {
+            mensagem = $"10% de desconto! Total: R$ {valor * 0.9:F2}";
+            cor = "green";
+        }
+        else
+        {
+            mensagem = $"Faltam R$ {100 - valor:F2} pro desconto.";
+            cor = "orange";
+        }
+    }
+
+    void Limpar()
+    {
+        valor = 0;
+        mensagem = "";
+        cor = "black";
+    }
+}

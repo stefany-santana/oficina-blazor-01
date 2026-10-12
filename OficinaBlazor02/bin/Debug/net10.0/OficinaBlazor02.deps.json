@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "OficinaBlazor02/1.0.0": {
+        "runtime": {
+          "OficinaBlazor02.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "OficinaBlazor02/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

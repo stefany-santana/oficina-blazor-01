@@ -1,0 +1,22 @@
+@page "/operadores"
+@rendermode InteractiveServer
+
+<PageTitle>Operadores</PageTitle>
+
+<h1>Operadores</h1>
+
+<label>
+    Idade:
+    <input type="number" @bind="idade" @bind:event="oninput" />
+</label>
+
+<p>idade >= 18: @(idade >= 18)</p>
+<p>idade == 18: @(idade == 18)</p>
+<p>idade &lt; 60: @(idade < 60)</p>
+<p>idade >= 18 E idade &lt; 60: @(idade >= 18 && idade < 60)</p>
+<p>idade &lt; 18 OU idade >= 60: @(idade < 18 || idade >= 60)</p>
+<p>NÃO (idade >= 18): @(!(idade >= 18))</p>
+
+@code {
+    int idade = 20;
+}

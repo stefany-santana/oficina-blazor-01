@@ -1,0 +1,43 @@
+@page "/maioridade"
+@rendermode InteractiveServer
+
+<PageTitle>Maioridade</PageTitle>
+
+<h1>Maioridade</h1>
+
+<label>
+    Idade:
+    <input type="number" @bind="idade" @bind:event="oninput" />
+</label>
+
+<h2>if e else</h2>
+@if (idade >= 18)
+{
+    <p style="color: green">Maior de idade</p>
+}
+else
+{
+    <p style="color: orange">Menor de idade</p>
+}
+
+<h2>else if: faixa etária</h2>
+@if (idade < 12)
+{
+    <p>Criança</p>
+}
+else if (idade < 18)
+{
+    <p>Adolescente</p>
+}
+else if (idade < 60)
+{
+    <p>Adulto</p>
+}
+else
+{
+    <p>Idoso</p>
+}
+
+@code {
+    int idade = 20;
+}
