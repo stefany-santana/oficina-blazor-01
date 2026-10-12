@@ -1,0 +1,57 @@
+@page "/perfil"
+@rendermode InteractiveServer
+
+<PageTitle>Perfil</PageTitle>
+
+<h1>Cartão de perfil</h1>
+
+<div class="perfil-layout">
+
+    <div class="formulario">
+        <label>
+            Nome
+            <input @bind="nome" @bind:event="oninput" />
+        </label>
+
+        <label>
+            Idade
+            <input type="number" @bind="idade" @bind:event="oninput" />
+        </label>
+
+        <label>
+            Curso
+            <input @bind="curso" @bind:event="oninput" />
+        </label>
+
+        <label>
+            Cidade
+            <input @bind="cidade" @bind:event="oninput" />
+        </label>
+
+        <label>
+            Altura (m)
+            <input type="number" step="0.01" @bind="altura" @bind:event="oninput" />
+        </label>
+    </div>
+
+    <div class="cartao">
+        <h2>@nome</h2>
+        <p><strong>Idade:</strong> @idade anos</p>
+        <p><strong>Curso:</strong> @curso</p>
+        <p><strong>Cidade:</strong> @cidade</p>
+        <p><strong>Altura:</strong> @altura m</p>
+        <hr />
+        <p>Daqui a 10 anos terá <strong>@(idade + 10)</strong> anos.</p>
+        <p>Ano de nascimento aproximado: <strong>@(2026 - idade)</strong></p>
+        <p>Seu nome tem <strong>@nome.Length</strong> letras.</p>
+    </div>
+
+</div>
+
+@code {
+    string nome = "Ana";
+    int idade = 20;
+    string curso = "Sistemas de Informação";
+    string cidade = "Belo Horizonte";
+    double altura = 1.68;
+}
