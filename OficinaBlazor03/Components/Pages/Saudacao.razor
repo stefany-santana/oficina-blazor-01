@@ -1,0 +1,11 @@
+@page "/saudacao"
+@rendermode InteractiveServer
+
+<PageTitle>Saudação</PageTitle>
+
+<input @bind="nome" @bind:event="oninput" />
+<h2>Olá, @nome!</h2>
+
+@code {
+    string nome = "";
+}

@@ -1,0 +1,75 @@
+@page "/tarefas"
+@rendermode InteractiveServer
+
+<PageTitle>Tarefas</PageTitle>
+
+<h1>Lista de tarefas</h1>
+
+<input @bind="novaTarefa" @bind:event="oninput" placeholder="Nova tarefa" />
+<button @onclick="Adicionar">Adicionar</button>
+<button @onclick="LimparTudo">Limpar tudo</button>
+
+@if (aviso != "")
+{
+    <p style="color: red">@aviso</p>
+}
+
+@* Desafio 4: contagem e mensagem de lista vazia *@
+@if (tarefas.Count == 0)
+{
+    <p>Nenhuma tarefa ainda.</p>
+}
+else
+{
+    <p>Você tem @tarefas.Count tarefa(s).</p>
+}
+
+@* Desafio 2: mostrar todas as tarefas (for numerado + botão de remover) *@
+<ul style="list-style: none; padding: 0;">
+    @for (int i = 0; i < tarefas.Count; i++)
+    {
+        int indice = i;
+        <li style="margin-bottom: 0.4rem;">
+            @(i + 1). @tarefas[i]
+            <button @onclick="() => Remover(indice)">X</button>
+        </li>
+    }
+</ul>
+
+@code {
+    List<string> tarefas = new List<string>();
+    string novaTarefa = "";
+    string aviso = "";
+
+    void Adicionar()
+    {
+        // Desafio 3: não deixa adicionar tarefa vazia
+        if (string.IsNullOrWhiteSpace(novaTarefa))
+        {
+            aviso = "Digite uma tarefa antes de adicionar.";
+        }
+        // Extra: sem repetidas
+        else if (tarefas.Contains(novaTarefa.Trim()))
+        {
+            aviso = "Essa tarefa já está na lista.";
+        }
+        // Desafio 1: coloca a tarefa na lista
+        else
+        {
+            tarefas.Add(novaTarefa.Trim());
+            novaTarefa = "";
+            aviso = "";
+        }
+    }
+
+    void Remover(int indice)
+    {
+        tarefas.RemoveAt(indice);
+    }
+
+    void LimparTudo()
+    {
+        tarefas.Clear();
+        aviso = "";
+    }
+}

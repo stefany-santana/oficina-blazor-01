@@ -1,0 +1,30 @@
+@page "/frutas"
+@rendermode InteractiveServer
+
+<PageTitle>Frutas</PageTitle>
+
+<h1>Lista de frutas</h1>
+
+<input @bind="novaFruta" placeholder="Nova fruta" />
+<button @onclick="Adicionar">Adicionar</button>
+
+<ul>
+    @foreach (var fruta in frutas)
+    {
+        <li>@fruta</li>
+    }
+</ul>
+
+<p>Total: @frutas.Count frutas</p>
+<p>A primeira é: @frutas[0]</p>
+
+@code {
+    List<string> frutas = new List<string> { "Maçã", "Banana", "Uva" };
+    string novaFruta = "";
+
+    void Adicionar()
+    {
+        frutas.Add(novaFruta);
+        novaFruta = "";
+    }
+}
