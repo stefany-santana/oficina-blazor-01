@@ -1,0 +1,27 @@
+@page "/somar"
+@rendermode InteractiveServer
+
+<PageTitle>Somar</PageTitle>
+
+<h1>Somar e média</h1>
+
+<input type="number" @bind="a" @bind:event="oninput" />
+<input type="number" @bind="b" @bind:event="oninput" />
+
+<p>Soma: @Somar(a, b)</p>
+<p>Média: @Media(a, b)</p>
+
+@code {
+    double a = 10;
+    double b = 20;
+
+    double Somar(double x, double y)
+    {
+        return x + y;
+    }
+
+    double Media(double x, double y)
+    {
+        return Somar(x, y) / 2;
+    }
+}

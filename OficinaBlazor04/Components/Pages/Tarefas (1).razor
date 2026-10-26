@@ -1,0 +1,121 @@
+@page "/tarefas"
+@rendermode InteractiveServer
+
+<PageTitle>Tarefas</PageTitle>
+
+<h1>Lista de tarefas</h1>
+
+<input @bind="novaTarefa" @bind:event="oninput" placeholder="Nova tarefa" />
+<button @onclick="Adicionar">Adicionar</button>
+<button @onclick="LimparTudo">Limpar tudo</button>
+
+@if (erro != "")
+{
+    <p style="color: red">@erro</p>
+}
+
+@* Item 3: resumo vindo de um método *@
+<p>@ResumoTarefas()</p>
+
+<ul style="list-style: none; padding: 0;">
+    @foreach (var tarefa in tarefas)
+    {
+        <li style="margin-bottom: 0.4rem;">
+            @tarefa
+            @* Item 4: botão X chamando Remover(tarefa) *@
+            <button @onclick="() => Remover(tarefa)">X</button>
+        </li>
+    }
+</ul>
+
+@if (tarefas.Count > 0)
+{
+    <p>
+        @tarefas.Count @Pluralizar(tarefas.Count) · @TotalDeLetras() letras no total
+    </p>
+}
+
+@code {
+    List<string> tarefas = new List<string>();
+    string novaTarefa = "";
+    string erro = "";
+
+    // Item 1: devolve true se o texto não estiver vazio e não for repetido
+    bool TarefaValida(string texto)
+    {
+        if (string.IsNullOrWhiteSpace(texto))
+        {
+            return false;
+        }
+
+        if (tarefas.Contains(texto.Trim()))
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    // Item 2: usa o TarefaValida dentro do Adicionar
+    void Adicionar()
+    {
+        if (TarefaValida(novaTarefa))
+        {
+            tarefas.Add(novaTarefa.Trim());
+            novaTarefa = "";
+            erro = "";
+        }
+        else
+        {
+            erro = "Tarefa vazia ou repetida.";
+        }
+    }
+
+    // Item 3: devolve o resumo da lista
+    string ResumoTarefas()
+    {
+        if (tarefas.Count == 0)
+        {
+            return "Nenhuma tarefa ainda.";
+        }
+
+        return $"Você tem {tarefas.Count} tarefa(s).";
+    }
+
+    // Item 4: remove a tarefa recebida
+    void Remover(string tarefa)
+    {
+        tarefas.Remove(tarefa);
+    }
+
+    // Extra: plural certinho
+    string Pluralizar(int quantidade)
+    {
+        if (quantidade == 1)
+        {
+            return "tarefa";
+        }
+
+        return "tarefas";
+    }
+
+    // Extra: esvazia a lista
+    void LimparTudo()
+    {
+        tarefas.Clear();
+        erro = "";
+    }
+
+    // Extra: soma o tamanho de todas as tarefas
+    int TotalDeLetras()
+    {
+        int total = 0;
+
+        foreach (var tarefa in tarefas)
+        {
+            total += tarefa.Length;
+        }
+
+        return total;
+    }
+}
